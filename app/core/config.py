@@ -9,6 +9,7 @@ class Settings(BaseSettings):
     log_level: str = "INFO"
     database_url: str = "sqlite:///./orderflow_demo.db"
     downstream_base_url: str = "http://downstream.local"
+    threadline_sidecar_url: str = "http://localhost:8080"
 
     model_config = SettingsConfigDict(
         env_file=".env",

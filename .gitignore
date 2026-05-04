@@ -2,5 +2,5 @@ __pycache__/
 *.py[cod]
 .env
 .venv/
-venv/
 orderflow_demo.db
+uvicorn.*.log
