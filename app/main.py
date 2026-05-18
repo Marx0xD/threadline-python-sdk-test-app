@@ -16,7 +16,9 @@ threadline_client = Threadline(
     service_name=settings.app_name,
     environment=settings.environment,
     sidecar_url=settings.threadline_sidecar_url,
-)
+    instrumentations= ["httpx"],
+    auto_trace_enabled=True
+)   
 
 logging.basicConfig(
     level=getattr(logging, settings.log_level.upper(), logging.INFO),
