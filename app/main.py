@@ -5,9 +5,10 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
-from app.api.routes import internal_router, orders_router, test_router
+from app.api.routes import internal_router, orders_router, test_router, threadline_db_lab_router
 from app.core.config import get_settings
 from app.db.session import init_db
+from app.db.threadline_lab import init_threadline_lab_db
 from threadline.client import Threadline
 from threadline.integrations.fastapi import ThreadlineMiddleware
 
@@ -29,6 +30,7 @@ logging.basicConfig(
 @asynccontextmanager
 async def lifespan(_: FastAPI):
     init_db()
+    init_threadline_lab_db()
     try:
         yield
     finally:
@@ -44,6 +46,7 @@ app = FastAPI(
 app.add_middleware(ThreadlineMiddleware, threadline=threadline_client)
 app.include_router(orders_router)
 app.include_router(test_router)
+app.include_router(threadline_db_lab_router)
 app.include_router(internal_router)
 
 

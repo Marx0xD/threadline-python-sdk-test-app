@@ -3,4 +3,5 @@ __pycache__/
 .env
 .venv/
 orderflow_demo.db
+threadline_db_lab.db
 uvicorn.*.log

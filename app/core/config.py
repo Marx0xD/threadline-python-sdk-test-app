@@ -8,6 +8,7 @@ class Settings(BaseSettings):
     environment: str = "local"
     log_level: str = "INFO"
     database_url: str = "sqlite:///./orderflow_demo.db"
+    threadline_db: str = "postgresql+psycopg://threadline:threadline_dev_password@localhost:5433/threadline_db"
     downstream_base_url: str = "http://downstream.local"
     threadline_sidecar_url: str = "http://localhost:8080"
 
