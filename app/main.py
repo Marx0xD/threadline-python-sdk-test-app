@@ -11,6 +11,8 @@ from app.db.session import init_db
 from app.db.threadline_lab import init_threadline_lab_db
 from threadline.client import Threadline
 from threadline.integrations.fastapi import ThreadlineMiddleware
+from threadline.integrations.db.config import DatabaseTelemetryConfig
+
 
 settings = get_settings()
 threadline_client = Threadline(
@@ -18,7 +20,9 @@ threadline_client = Threadline(
     environment=settings.environment,
     sidecar_url=settings.threadline_sidecar_url,
     instrumentations= ["httpx"],
-    auto_trace_enabled=True
+    auto_trace_enabled=True,
+    otel_setup_provider=True,
+ 
 )   
 
 logging.basicConfig(
@@ -43,7 +47,7 @@ app = FastAPI(
     description="A demo FastAPI order workflow for debugging and investigation.",
     lifespan=lifespan,
 )
-app.add_middleware(ThreadlineMiddleware, threadline=threadline_client)
+app.add_middleware(ThreadlineMiddleware, threadline=threadline_client,database_telemetry_config=DatabaseTelemetryConfig())
 app.include_router(orders_router)
 app.include_router(test_router)
 app.include_router(threadline_db_lab_router)

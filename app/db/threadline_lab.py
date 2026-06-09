@@ -2,6 +2,7 @@ from collections.abc import Generator
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, declarative_base, sessionmaker
+from threadline.integrations.db.sqlalchemy import instrument_sqlalchemy
 
 from app.core.config import get_settings
 
@@ -19,6 +20,8 @@ if threadline_db_url.startswith("sqlite"):
     connect_args["check_same_thread"] = False
 
 lab_engine = create_engine(threadline_db_url, connect_args=connect_args)
+threadline_sqlalchemy = instrument_sqlalchemy(lab_engine)
+
 ThreadlineLabSessionLocal = sessionmaker(
     bind=lab_engine,
     autoflush=False,
