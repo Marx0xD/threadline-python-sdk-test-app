@@ -22,6 +22,7 @@ threadline_client = Threadline(
     instrumentations= ["httpx"],
     auto_trace_enabled=True,
     otel_setup_provider=True,
+    
  
 )   
 
